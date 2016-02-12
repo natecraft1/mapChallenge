@@ -1,1 +1,26 @@
-<p>This is the partial for view 1.</p>
+<div class="container">
+	<div class="row">
+		<div class="user-col col-md-3">
+			<header>User Feed</header>
+			<input type="text" ng-model="userSearch">
+			<div ng-repeat="username in usernames | filter:userSearch | orderBy:username">
+				<div ng-click="activateUserFeed(username)">
+					{{username}}
+				</div>
+			</div>
+		</div>
+		<div class="global-feed-col col-md-3">
+			<header>Global Feed</header>
+			<div feed-item ng-repeat="userActivity in globalUserActivity">
+
+				
+			</div>
+		</div>
+		<div ng-repeat="(username, feed) in activeUserColumns" class="user-feed-col col-md-3">
+			<header ng-click="">{{username}}</header>
+			<div ng-repeat="feedItem in feed">
+				{{feedItem.main_description}}
+			</div>
+		</div>
+	</div>
+</div>
