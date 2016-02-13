@@ -18,7 +18,7 @@ body {
 }
 
 .global-feed-col {
-  background-color: #0a96c7;
+  background-color: #e7e7e7;
 }
 
 .user-col {
@@ -33,7 +33,7 @@ body {
 
 }
 .user-feed-col {
-  background-color: #37c86f;
+  background-color: #e7e7e7;
 }
 
 .event-img {
@@ -43,9 +43,8 @@ body {
 }
 
 .event-box {
-  border-width: 1px;
-  border-color: red;
-  border-style: solid;
+
+
 }
 .selected {
   font-weight: bold;

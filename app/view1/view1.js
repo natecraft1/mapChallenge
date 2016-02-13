@@ -9,16 +9,16 @@ angular.module('myApp.view1', ['ngRoute'])
   });
 }])
 
-.controller('View1Ctrl', ["$scope", "$q", '$interval', "mapillaryService", "userFeedFactory",  function($scope, $q, $interval, mapillaryService, userFeedFactory) {
+.controller('View1Ctrl', ["$scope", "$q", '$interval', "$websocket", "mapillaryService", "userFeedFactory",  function($scope, $q, $interval, $websocket, mapillaryService, userFeedFactory) {
 
 	var colorI = 0
-	var eventTypeColors = ["red", "green", "blue", "orange", "yellow"]
+	var eventTypeColors = ["#FFEC94", "#FFAEAE", "#FFF0AA", "#B0E57C", "#B4D8E7", "#56BAEC"]
 
 	$scope.usernames = ["No data", "gyllen", "natecraft", "jesolem", "richlv", "pbokr", "luislatin", "teddy73", "ricardoggoncalves", "ottokar", "raul"]
 	$scope.activeUserColumns = {}
 	$scope.globalUserActivity = []
 	$scope.eventTypes = {}
-
+	console.log("websocket", $websocket)
 	$scope.toggleActiveUser = function(username) {
 		if (!localStorage.getItem(username) && !userFeedFactory.feedForUser(username)) {
 			mapillaryService.fetchUserFeed(username).then(function(data) {
@@ -57,9 +57,9 @@ angular.module('myApp.view1', ['ngRoute'])
 		localStorage.removeItem(username)
 	}
 
-	// $interval(function() {
-	// 	fetchGlobalFeed()
-	// }, 6000)
+	$interval(function() {
+		fetchGlobalFeed()
+	}, 6000)
 	fetchGlobalFeed()
 
 }]).directive('feedItem', function() {
@@ -74,7 +74,7 @@ angular.module('myApp.view1', ['ngRoute'])
   			scope.setEventType(scope.eventInfo.action)
   		}
   	},
-    template: '<div class="event-box" style="border-color:{{eventTypes[eventInfo.action]}}"> \
+    template: '<div class="event-box" style="background-color:{{eventTypes[eventInfo.action]}}"> \
     	Username: {{eventInfo.user}} <br/> \
     	Event: {{eventInfo.action}} <br/> \
     	Description: {{eventInfo.main_description}} <br/> \
