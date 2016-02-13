@@ -7,3 +7,20 @@
 .global-feed-col {
   background-color: #fcd99c;
 }
+.feed-item-box {
+ 
+  padding: 5px;
+}
+.event-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.event-box {
+  border-width: 1px;
+  border-color: red;
+  border-style: solid;
+}
+.colm {
+  width: 200px;
+}

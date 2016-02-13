@@ -11,9 +11,13 @@ angular.module('myApp.view1', ['ngRoute'])
 
 .controller('View1Ctrl', ["$scope", "$q", "mapillaryService", "userFeedFactory", function($scope, $q, mapillaryService, userFeedFactory) {
 
-	$scope.usernames = ["gyllen", "natecraft", "jesolem", "travel_193", "uddback"]
+	var colorI = 0
+	var eventTypeColors = ["red", "green", "blue", "orange", "yellow"]
+
+	$scope.usernames = ["gyllen", "natecraft", "jesolem", "travel_193", "uddback", "peterneubauer", "kamfski", "katrinhumal", "juhaszlevi", "oscarlorentz"]
 	$scope.activeUserColumns = {}
 	$scope.globalUserActivity = []
+	$scope.eventTypes = {}
 
 	$scope.activateUserFeed = function(username) {
 		if (!userFeedFactory.feedForUser(username)) {
@@ -27,7 +31,9 @@ angular.module('myApp.view1', ['ngRoute'])
 			delete $scope.activeUserColumns[username]
 		}
 	}
-
+	$scope.setEventType = function(eventName) {
+		$scope.eventTypes[eventName] = eventTypeColors[colorI++]
+	}
 	mapillaryService.fetchUser().then(function(data) {
 		console.log(data)
 	})
@@ -37,13 +43,26 @@ angular.module('myApp.view1', ['ngRoute'])
 	})
 	
 	mapillaryService.fetchGlobalFeed().then(function(data) {
-
 		$scope.globalUserActivity = data.feed
 	})
 
 }]).directive('feedItem', function() {
-	console.log("scope from directive", $scope)
   return {
-    template: 'Name: {{username}}'
+  	scope: {
+  		eventInfo: "=",
+  		eventTypes: "=",
+  		setEventType: "="
+  	},
+  	link: function(scope, elements, attrs) {
+  		if (!scope.eventTypes[scope.eventInfo.action]) {
+  			scope.setEventType(scope.eventInfo.action)
+  		}
+  	},
+    template: '<div class="event-box" style="border-color:{{eventTypes[eventInfo.action]}}"> \
+    	Username: {{eventInfo.user}} <br/> \
+    	Event: {{eventInfo.action}} <br/> \
+    	Description: {{eventInfo.main_description}} <br/> \
+    	<img class="event-img" src={{eventInfo.image_url}}> \
+    	</div>'
   };
 });
