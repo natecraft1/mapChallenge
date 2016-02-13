@@ -1,5 +1,5 @@
 <div class="user-col colm">
-	<input type="text" ng-model="userSearch">
+	<input type="text" ng-model="userSearch" placeholder="Username">
 	<div ng-repeat="username in usernames | filter:userSearch | orderBy:username">
 		<div ng-class="{selected: activeUserColumns[username]}" ng-click="toggleActiveUser(username)">
 			<div class="user-box">
@@ -24,5 +24,5 @@
 	<div ng-repeat="feedItem in feed" class="feed-item-box">
 		<div feed-item event-info="feedItem" event-types="eventTypes" set-event-type="setEventType"></div>
 	</div>
-	<!-- <img ng-if="!feed.length" src="https://s-media-cache-ak0.pinimg.com/originals/98/76/dd/9876dd1090b6b8e1291cb01592fc7925.gif" alt=""> -->
+	<img ng-if="!feed.length" src="https://s-media-cache-ak0.pinimg.com/originals/98/76/dd/9876dd1090b6b8e1291cb01592fc7925.gif" style="width: 200px;height:100px" alt="">
 </div>

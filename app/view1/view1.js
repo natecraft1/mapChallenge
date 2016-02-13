@@ -14,7 +14,7 @@ angular.module('myApp.view1', ['ngRoute'])
 	var colorI = 0
 	var eventTypeColors = ["#FFEC94", "#FFAEAE", "#FFF0AA", "#B0E57C", "#B4D8E7", "#56BAEC"]
 
-	$scope.usernames = ["No data", "gyllen", "natecraft", "jesolem", "richlv", "pbokr", "luislatin", "teddy73", "ricardoggoncalves", "ottokar", "raul"]
+	$scope.usernames = ["gyllen", "natecraft", "jesolem", "richlv", "pbokr", "luislatin", "teddy73", "ricardoggoncalves", "ottokar", "raul"]
 	$scope.activeUserColumns = {}
 	$scope.globalUserActivity = []
 	$scope.eventTypes = {}
@@ -22,6 +22,7 @@ angular.module('myApp.view1', ['ngRoute'])
 	$scope.toggleActiveUser = function(username) {
 		if (!localStorage.getItem(username) && !userFeedFactory.feedForUser(username)) {
 			mapillaryService.fetchUserFeed(username).then(function(data) {
+				
 				replaceMissingImages(data.feed)
 				userFeedFactory.setFeedForUser(username, data.feed)
 				$scope.activeUserColumns[username] = data.feed
