@@ -6,7 +6,6 @@
 			<div class="user-box">
 				{{username}}
 			</div>
-			<!-- https://s-media-cache-ak0.pinimg.com/originals/98/76/dd/9876dd1090b6b8e1291cb01592fc7925.gif -->
 		</div>
 	</div>
 </div>
@@ -16,15 +15,15 @@
 	<button ng-click="globalUserActivity.reverse()">Reverse</button>
 	<div class="feed-item-box" ng-repeat="userActivity in globalUserActivity">
 		<div feed-item event-info="userActivity" event-types="eventTypes" set-event-type="setEventType"></div>
-		
 	</div>
 </div>
 
 <div ng-repeat="(username, feed) in activeUserColumns" class="user-feed-col colm">
 	<header ng-click="">{{username}}</header>
-	<button ng-click="feed.reverse()">Reverse</button>
+	<button ng-if="feed.length > 0" ng-click="feed.reverse()">Reverse</button>
 	<button ng-click="deactivateUserColumn(username)">Close</button>
 	<div ng-repeat="feedItem in feed" class="feed-item-box">
 		<div feed-item event-info="feedItem" event-types="eventTypes" set-event-type="setEventType"></div>
 	</div>
+	<!-- <img ng-if="!feed.length" src="https://s-media-cache-ak0.pinimg.com/originals/98/76/dd/9876dd1090b6b8e1291cb01592fc7925.gif" alt=""> -->
 </div>

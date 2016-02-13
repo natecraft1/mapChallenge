@@ -38,6 +38,10 @@ angular.module('myApp.view1', ['ngRoute'])
 		$scope.eventTypes[eventName] = eventTypeColors[colorI++ % eventTypeColors.length]
 	}
 
+	$scope.deactivateUserColumn = function(username) {
+		removeActiveUserColumn(username)
+	}
+
 	function fetchGlobalFeed() {
 		mapillaryService.fetchGlobalFeed().then(function(data) {
 			$scope.globalUserActivity = data.feed
@@ -45,7 +49,7 @@ angular.module('myApp.view1', ['ngRoute'])
 	}
 
 	function addActiveUserColumn(username) {
-		$scope.activeUserColumns[username] = JSON.parse(localStorage.getItem(username)) && userFeedFactory.feedForUser(username)
+		$scope.activeUserColumns[username] = JSON.parse(localStorage.getItem(username)) || userFeedFactory.feedForUser(username)
 	}
 	
 	function removeActiveUserColumn(username) {
@@ -53,9 +57,9 @@ angular.module('myApp.view1', ['ngRoute'])
 		localStorage.removeItem(username)
 	}
 
-	$interval(function() {
-		fetchGlobalFeed()
-	}, 6000)
+	// $interval(function() {
+	// 	fetchGlobalFeed()
+	// }, 6000)
 	fetchGlobalFeed()
 
 }]).directive('feedItem', function() {
