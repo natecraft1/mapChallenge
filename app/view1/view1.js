@@ -9,13 +9,14 @@ angular.module('myApp.view1', ['ngRoute'])
   });
 }])
 
-.controller('View1Ctrl', ["$scope", "$q", "mapillaryService", "userFeedFactory", function($scope, $q, mapillaryService, userFeedFactory) {
+.controller('View1Ctrl', ["$scope", "$q", '$timeout', "mapillaryService", "userFeedFactory",  function($scope, $q, $timeout, mapillaryService, userFeedFactory) {
 
 	var colorI = 0
 	var eventTypeColors = ["red", "green", "blue", "orange", "yellow"]
 
-	$scope.usernames = ["gyllen", "natecraft", "jesolem", "travel_193", "uddback", "peterneubauer", "kamfski", "katrinhumal", "juhaszlevi", "oscarlorentz"]
-	$scope.activeUserColumns = {}
+	$scope.usernames = ["gyllen", "natecraft", "jesolem", "richlv", "pbokr", "luislatin", "teddy73", "katrinhumal", "ottokar", "raul"]
+	localStorage.activeUserColumns = {}
+	$scope.activeUserColumns = localStorage.activeUserColumns
 	$scope.globalUserActivity = []
 	$scope.eventTypes = {}
 
@@ -24,27 +25,27 @@ angular.module('myApp.view1', ['ngRoute'])
 			mapillaryService.fetchUserFeed(username).then(function(data) {
 				userFeedFactory.setFeedForUser(username, data.feed)
 				$scope.activeUserColumns[username] = data.feed
+
 			})
 		} else if (!$scope.activeUserColumns[username]) { 
 			$scope.activeUserColumns[username] = userFeedFactory.feedForUser(username)
+
 		} else {
 			delete $scope.activeUserColumns[username]
 		}
 	}
-	$scope.setEventType = function(eventName) {
-		$scope.eventTypes[eventName] = eventTypeColors[colorI++]
-	}
-	mapillaryService.fetchUser().then(function(data) {
-		console.log(data)
-	})
-
-	mapillaryService.fetchUserProfilePicture().then(function(data) {
-		console.log(data)
-	})
 	
-	mapillaryService.fetchGlobalFeed().then(function(data) {
-		$scope.globalUserActivity = data.feed
-	})
+	$scope.setEventType = function(eventName) {
+		$scope.eventTypes[eventName] = eventTypeColors[colorI++%eventTypeColors.length]
+	}
+	
+	function fetchGlobalFeed() {
+		mapillaryService.fetchGlobalFeed().then(function(data) {
+			$scope.globalUserActivity = data.feed
+		})
+	}
+
+	fetchGlobalFeed()
 
 }]).directive('feedItem', function() {
   return {
