@@ -1,29 +1,27 @@
-<div class="container">
-	<div class="row">
-		<div class="user-col colm">
-			<header>User Feed</header>
-			<input type="text" ng-model="userSearch">
-			<div ng-repeat="username in usernames | filter:userSearch | orderBy:username">
-				<div ng-click="activateUserFeed(username)">
-					{{username}}
-				</div>
-			</div>
+<div class="user-col colm">
+	<header>User Feed</header>
+	<input type="text" ng-model="userSearch">
+	<div ng-repeat="username in usernames | filter:userSearch | orderBy:username">
+		<div ng-class="{selected: activeUserColumns[username]}" ng-click="activateUserFeed(username)">
+			{{username}}
 		</div>
-		<div class="global-feed-col colm">
-			<header>Global Feed</header>
-			<button ng-click="globalUserActivity.reverse()">Reverse</button>
-			<div class="feed-item-box" ng-repeat="userActivity in globalUserActivity">
-				<div feed-item event-info="userActivity" event-types="eventTypes" set-event-type="setEventType"></div>
-				
-			</div>
-		</div>
-		<div ng-repeat="(username, feed) in activeUserColumns" class="user-feed-col colm">
-			<header ng-click="">{{username}}</header>
-			<button ng-click="feed.reverse()">Reverse</button>
-			<div ng-repeat="feedItem in feed">
-				<div feed-item event-info="feedItem" event-types="eventTypes" set-event-type="setEventType"></div>
+	</div>
+</div>
 
-			</div>
-		</div>
+<div class="global-feed-col colm">
+	<header>Global Feed</header>
+	<button ng-click="globalUserActivity.reverse()">Reverse</button>
+	<div class="feed-item-box" ng-repeat="userActivity in globalUserActivity">
+		<div feed-item event-info="userActivity" event-types="eventTypes" set-event-type="setEventType"></div>
+		
+	</div>
+</div>
+
+<div ng-repeat="(username, feed) in activeUserColumns" class="user-feed-col colm">
+	<header ng-click="">{{username}}</header>
+	<button ng-click="feed.reverse()">Reverse</button>
+	<button ng-click="deactivateUserColumn(username)">Close</button>
+	<div ng-repeat="feedItem in feed" class="feed-item-box">
+		<div feed-item event-info="feedItem" event-types="eventTypes" set-event-type="setEventType"></div>
 	</div>
 </div>

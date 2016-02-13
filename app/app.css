@@ -1,27 +1,45 @@
-.user-col {
-  background-color: #60749f;
+body {
+  overflow-x: scroll;
+  white-space: nowrap;
 }
-.user-feed-col {
-  background-color: #37c86f;
+
+.colm {
+  width: 300px;
+  display: inline-block;
+  padding: 5px;
+  vertical-align: top;
+  margin-right: 5px;
+  word-wrap: normal;
 }
+
+.feed-item-box {
+  padding: 5px;
+}
+
 .global-feed-col {
   background-color: #fcd99c;
 }
-.feed-item-box {
- 
-  padding: 5px;
+
+.user-col {
+  background-color: #60749f;
 }
+
+.user-feed-col {
+  background-color: #37c86f;
+}
+
 .event-img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
 }
+
 .event-box {
   border-width: 1px;
   border-color: red;
   border-style: solid;
 }
-.colm {
-  width: 200px;
-  display: inline-block;
+.selected {
+  font-weight: bold;
+  background-color: yellow;
 }

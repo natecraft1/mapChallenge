@@ -9,12 +9,12 @@ angular.module('myApp.view1', ['ngRoute'])
   });
 }])
 
-.controller('View1Ctrl', ["$scope", "$q", '$interval', "mapillaryService", "userFeedFactory",  function($scope, $q, $invterval, mapillaryService, userFeedFactory) {
+.controller('View1Ctrl', ["$scope", "$q", '$interval', "mapillaryService", "userFeedFactory",  function($scope, $q, $interval, mapillaryService, userFeedFactory) {
 
 	var colorI = 0
 	var eventTypeColors = ["red", "green", "blue", "orange", "yellow"]
 
-	$scope.usernames = ["gyllen", "natecraft", "jesolem", "richlv", "pbokr", "luislatin", "teddy73", "katrinhumal", "ottokar", "raul"]
+	$scope.usernames = ["gyllen", "natecraft", "jesolem", "richlv", "pbokr", "luislatin", "teddy73", "ricardoggoncalves", "ottokar", "raul"]
 	$scope.activeUserColumns = {}
 	$scope.globalUserActivity = []
 	$scope.eventTypes = {}
@@ -30,7 +30,7 @@ angular.module('myApp.view1', ['ngRoute'])
 			$scope.activeUserColumns[username] = userFeedFactory.feedForUser(username)
 
 		} else {
-			delete $scope.activeUserColumns[username]
+			$scope.deactivateUserColumn(username)
 		}
 	}
 	
@@ -38,13 +38,18 @@ angular.module('myApp.view1', ['ngRoute'])
 		$scope.eventTypes[eventName] = eventTypeColors[colorI++%eventTypeColors.length]
 	}
 	
+	$scope.deactivateUserColumn = function(username) {
+		delete $scope.activeUserColumns[username]
+	}
+
 	function fetchGlobalFeed() {
 		mapillaryService.fetchGlobalFeed().then(function(data) {
 			$scope.globalUserActivity = data.feed
 		})
 	}
-
-
+	$interval(function() {
+		fetchGlobalFeed()
+	}, 6000)
 	fetchGlobalFeed()
 
 }]).directive('feedItem', function() {
