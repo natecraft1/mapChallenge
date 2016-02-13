@@ -11,7 +11,7 @@
 
 <div class="global-feed-col colm">
 	<header>Global Feed</header>
-	<button ng-click="globalUserActivity.reverse()">Reverse</button>
+	<button ng-click="globalUserActivity.reverse()" class="btn-primary">Reverse</button>
 	<div class="feed-item-box" ng-repeat="userActivity in globalUserActivity">
 		<div feed-item event-info="userActivity" event-types="eventTypes" set-event-type="setEventType"></div>
 	</div>
@@ -19,8 +19,8 @@
 
 <div ng-repeat="(username, feed) in activeUserColumns" class="user-feed-col colm">
 	<header ng-click="">@{{username}}</header>
-	<button ng-if="feed.length > 0" ng-click="feed.reverse()">Reverse</button>
-	<button ng-click="deactivateUserColumn(username)">Close</button>
+	<button ng-if="feed.length > 0" ng-click="feed.reverse()" class="btn-primary">Reverse</button>
+	<button ng-click="deactivateUserColumn(username)" class="btn-danger">Close</button>
 	<div ng-repeat="feedItem in feed" class="feed-item-box">
 		<div feed-item event-info="feedItem" event-types="eventTypes" set-event-type="setEventType"></div>
 	</div>
