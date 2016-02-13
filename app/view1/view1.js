@@ -9,14 +9,13 @@ angular.module('myApp.view1', ['ngRoute'])
   });
 }])
 
-.controller('View1Ctrl', ["$scope", "$q", '$timeout', "mapillaryService", "userFeedFactory",  function($scope, $q, $timeout, mapillaryService, userFeedFactory) {
+.controller('View1Ctrl', ["$scope", "$q", '$interval', "mapillaryService", "userFeedFactory",  function($scope, $q, $invterval, mapillaryService, userFeedFactory) {
 
 	var colorI = 0
 	var eventTypeColors = ["red", "green", "blue", "orange", "yellow"]
 
 	$scope.usernames = ["gyllen", "natecraft", "jesolem", "richlv", "pbokr", "luislatin", "teddy73", "katrinhumal", "ottokar", "raul"]
-	localStorage.activeUserColumns = {}
-	$scope.activeUserColumns = localStorage.activeUserColumns
+	$scope.activeUserColumns = {}
 	$scope.globalUserActivity = []
 	$scope.eventTypes = {}
 
@@ -44,6 +43,7 @@ angular.module('myApp.view1', ['ngRoute'])
 			$scope.globalUserActivity = data.feed
 		})
 	}
+
 
 	fetchGlobalFeed()
 
