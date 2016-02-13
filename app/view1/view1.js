@@ -9,7 +9,7 @@ angular.module('myApp.view1', ['ngRoute'])
   });
 }])
 
-.controller('View1Ctrl', ["$scope", "$q", '$interval', "$websocket", "mapillaryService", "userFeedFactory",  function($scope, $q, $interval, $websocket, mapillaryService, userFeedFactory) {
+.controller('View1Ctrl', ["$scope", "$q", '$interval', "mapillaryService", "userFeedFactory",  function($scope, $q, $interval, mapillaryService, userFeedFactory) {
 
 	var colorI = 0
 	var eventTypeColors = ["#FFEC94", "#FFAEAE", "#FFF0AA", "#B0E57C", "#B4D8E7", "#56BAEC"]

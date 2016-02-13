@@ -6,8 +6,7 @@ angular.module('myApp', [
   'myApp.view1',
   'myApp.version',
   'myApp.mapillaryService',
-  'myApp.userFeedFactory',
-  'ngWebSocket'
+  'myApp.userFeedFactory'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/view1'});
