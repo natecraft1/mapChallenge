@@ -2,8 +2,11 @@
 	<header>User Feed</header>
 	<input type="text" ng-model="userSearch">
 	<div ng-repeat="username in usernames | filter:userSearch | orderBy:username">
-		<div ng-class="{selected: activeUserColumns[username]}" ng-click="activateUserFeed(username)">
-			{{username}}
+		<div ng-class="{selected: activeUserColumns[username]}" ng-click="toggleActiveUser(username)">
+			<div class="user-box">
+				{{username}}
+			</div>
+			<!-- https://s-media-cache-ak0.pinimg.com/originals/98/76/dd/9876dd1090b6b8e1291cb01592fc7925.gif -->
 		</div>
 	</div>
 </div>

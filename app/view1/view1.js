@@ -14,32 +14,28 @@ angular.module('myApp.view1', ['ngRoute'])
 	var colorI = 0
 	var eventTypeColors = ["red", "green", "blue", "orange", "yellow"]
 
-	$scope.usernames = ["gyllen", "natecraft", "jesolem", "richlv", "pbokr", "luislatin", "teddy73", "ricardoggoncalves", "ottokar", "raul"]
+	$scope.usernames = ["No data", "gyllen", "natecraft", "jesolem", "richlv", "pbokr", "luislatin", "teddy73", "ricardoggoncalves", "ottokar", "raul"]
 	$scope.activeUserColumns = {}
 	$scope.globalUserActivity = []
 	$scope.eventTypes = {}
 
-	$scope.activateUserFeed = function(username) {
-		if (!userFeedFactory.feedForUser(username)) {
+	$scope.toggleActiveUser = function(username) {
+		if (!localStorage.getItem(username) && !userFeedFactory.feedForUser(username)) {
 			mapillaryService.fetchUserFeed(username).then(function(data) {
 				userFeedFactory.setFeedForUser(username, data.feed)
 				$scope.activeUserColumns[username] = data.feed
+				localStorage.setItem(username, JSON.stringify(data.feed))
 
 			})
 		} else if (!$scope.activeUserColumns[username]) { 
-			$scope.activeUserColumns[username] = userFeedFactory.feedForUser(username)
-
+			addActiveUserColumn(username)
 		} else {
-			$scope.deactivateUserColumn(username)
+			removeActiveUserColumn(username)
 		}
 	}
 	
 	$scope.setEventType = function(eventName) {
-		$scope.eventTypes[eventName] = eventTypeColors[colorI++%eventTypeColors.length]
-	}
-	
-	$scope.deactivateUserColumn = function(username) {
-		delete $scope.activeUserColumns[username]
+		$scope.eventTypes[eventName] = eventTypeColors[colorI++ % eventTypeColors.length]
 	}
 
 	function fetchGlobalFeed() {
@@ -47,6 +43,16 @@ angular.module('myApp.view1', ['ngRoute'])
 			$scope.globalUserActivity = data.feed
 		})
 	}
+
+	function addActiveUserColumn(username) {
+		$scope.activeUserColumns[username] = JSON.parse(localStorage.getItem(username)) && userFeedFactory.feedForUser(username)
+	}
+	
+	function removeActiveUserColumn(username) {
+		delete $scope.activeUserColumns[username]
+		localStorage.removeItem(username)
+	}
+
 	$interval(function() {
 		fetchGlobalFeed()
 	}, 6000)

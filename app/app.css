@@ -1,6 +1,7 @@
 body {
   overflow-x: scroll;
   white-space: nowrap;
+  font-family: Arial !important;
 }
 
 .colm {
@@ -17,13 +18,20 @@ body {
 }
 
 .global-feed-col {
-  background-color: #fcd99c;
+  background-color: #0a96c7;
 }
 
 .user-col {
-  background-color: #60749f;
+  background-color: #e3e3e3;
 }
+.user-box {
+  padding: 10px;
+  text-align: left;
+  font-size: 20px;
+  cursor: pointer;
+  color: #3B5F6B;
 
+}
 .user-feed-col {
   background-color: #37c86f;
 }
