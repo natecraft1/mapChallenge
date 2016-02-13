@@ -4,6 +4,11 @@ body {
   font-family: Arial !important;
 }
 
+header {
+  padding-bottom: 10px;
+  text-align: center;
+}
+
 .colm {
   width: 300px;
   display: inline-block;
@@ -15,6 +20,7 @@ body {
 
 .feed-item-box {
   padding: 5px;
+  white-space: normal;
 }
 
 .global-feed-col {

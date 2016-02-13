@@ -1,10 +1,9 @@
 <div class="user-col colm">
-	<header>User Feed</header>
 	<input type="text" ng-model="userSearch">
 	<div ng-repeat="username in usernames | filter:userSearch | orderBy:username">
 		<div ng-class="{selected: activeUserColumns[username]}" ng-click="toggleActiveUser(username)">
 			<div class="user-box">
-				{{username}}
+				@{{username}}
 			</div>
 		</div>
 	</div>
@@ -19,7 +18,7 @@
 </div>
 
 <div ng-repeat="(username, feed) in activeUserColumns" class="user-feed-col colm">
-	<header ng-click="">{{username}}</header>
+	<header ng-click="">@{{username}}</header>
 	<button ng-if="feed.length > 0" ng-click="feed.reverse()">Reverse</button>
 	<button ng-click="deactivateUserColumn(username)">Close</button>
 	<div ng-repeat="feedItem in feed" class="feed-item-box">

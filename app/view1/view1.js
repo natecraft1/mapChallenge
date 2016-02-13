@@ -18,10 +18,11 @@ angular.module('myApp.view1', ['ngRoute'])
 	$scope.activeUserColumns = {}
 	$scope.globalUserActivity = []
 	$scope.eventTypes = {}
-	console.log("websocket", $websocket)
+
 	$scope.toggleActiveUser = function(username) {
 		if (!localStorage.getItem(username) && !userFeedFactory.feedForUser(username)) {
 			mapillaryService.fetchUserFeed(username).then(function(data) {
+				replaceMissingImages(data.feed)
 				userFeedFactory.setFeedForUser(username, data.feed)
 				$scope.activeUserColumns[username] = data.feed
 				localStorage.setItem(username, JSON.stringify(data.feed))
@@ -44,12 +45,23 @@ angular.module('myApp.view1', ['ngRoute'])
 
 	function fetchGlobalFeed() {
 		mapillaryService.fetchGlobalFeed().then(function(data) {
+			replaceMissingImages(data.feed)
 			$scope.globalUserActivity = data.feed
 		})
 	}
 
 	function addActiveUserColumn(username) {
 		$scope.activeUserColumns[username] = JSON.parse(localStorage.getItem(username)) || userFeedFactory.feedForUser(username)
+	}
+
+	function replaceMissingImages(feedArray) {
+		var missingImageUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png';
+
+		feedArray.forEach(function(feed) {
+			if (feed.image_url.includes('missing-image.png')) {
+				feed.image_url = missingImageUrl;
+			}
+		});
 	}
 	
 	function removeActiveUserColumn(username) {
@@ -75,10 +87,9 @@ angular.module('myApp.view1', ['ngRoute'])
   		}
   	},
     template: '<div class="event-box" style="background-color:{{eventTypes[eventInfo.action]}}"> \
-    	Username: {{eventInfo.user}} <br/> \
+    	<img class="event-img" src={{eventInfo.image_url}}> @{{eventInfo.user}} <br/> \
     	Event: {{eventInfo.action}} <br/> \
     	Description: {{eventInfo.main_description}} <br/> \
-    	<img class="event-img" src={{eventInfo.image_url}}> \
     	</div>'
   };
 });
