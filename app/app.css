@@ -10,6 +10,18 @@ header {
   text-align: center;
 }
 
+.input-group {
+  margin-bottom: 10px;
+}
+
+.btn {
+  margin-bottom: 5px;
+}
+
+.btn.btn-primary {
+  margin-left: 5px;
+}
+
 .colm {
   width: 300px;
   display: inline-block;
@@ -31,6 +43,7 @@ header {
 .user-col {
   background-color: #e3e3e3;
 }
+
 .user-box {
   padding: 10px;
   text-align: left;
@@ -50,9 +63,9 @@ header {
 }
 
 .event-box {
-
-
+  padding: 5px;
 }
+
 .selected {
   font-weight: bold;
   background-color: yellow;
